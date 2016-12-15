@@ -1,0 +1,30 @@
+doctype html
+html.
+  <h1>Send Text</h1>
+  <label>Phone Number</label>
+  <input id="phone-number"/>
+  <label>Message</label>
+  <input id="message"/>
+  <button onclick="sendText()">SEND</button>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
+  <script>
+    function sendText(){
+      //Number will also need a country code.
+      //So if you are in the United States, will need a '1' before your phone number.
+      var number = $('#phone-number').val();
+      var message = $('#message').val();
+      $.ajax({
+        url: "/sendText",
+        method:"post",
+        data:JSON.stringify({
+          PhoneNumber: number,
+          Message: message
+        }),
+        success:function(){
+          //Clear out the values after a successful send.
+          $('#phone-number').val('');
+          $('#message').val('');
+        }
+      });
+    }
+  </script>
